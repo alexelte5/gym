@@ -1,28 +1,28 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { Link } from 'expo-router'; 
-import Dashboard from '../../components/dashboard/Dashboard';
+import {
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import ScreenWrapper from '../../components/layout/ScreenWrapper';
+import DashboardHeader from '../../components/dashboard/DashboardHeader';
+import TrainingPlanCard from '../../components/dashboard/TrainingPlanCard';
+import StatsGrid from '../../components/dashboard/StatsGrid';
+import StartTrainingButton from '../../components/dashboard/StartTrainingButton';
+import SmallLeaderboard from '../../components/dashboard/SmallLeaderBoard';
 
-export default function Index() {
+export default function Dashboard() {
   return (
-    <View style={styles.container}>
-        <Dashboard />
-    </View>
+    <ScreenWrapper>
+        <DashboardHeader />
+        <SmallLeaderboard />
+        <TrainingPlanCard />
+        <StatsGrid />
+        <StartTrainingButton />
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#fff',
-  },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
+  content: {
+    paddingBottom: 32,
   },
 });
