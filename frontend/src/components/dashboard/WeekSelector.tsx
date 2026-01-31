@@ -7,7 +7,6 @@ const days = [
   { label: 'Mi, 18.', value: '' },
   { label: 'Do, 19.', value: '' },
   { label: 'Fr, 20.', value: '' },
-  { label: 'Sa, 21.', value: '' },
 ];
 
 export default function WeekSelector() {
@@ -18,7 +17,7 @@ export default function WeekSelector() {
           key={index}
           style={[
             styles.day,
-            index === 5 && styles.selected,
+            index === 4 && styles.selected,
           ]}
         >
           <Text style={styles.dayText}>{day.label}</Text>
@@ -35,12 +34,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     gap: 8,
+    justifyContent: 'center'
   },
   day: {
     backgroundColor: colors.gray,
     borderRadius: 12,
     padding: 8,
-    width: 56,
+    width: 63,
+    height: 55,
+    justifyContent: 'space-between'
   },
   selected: {
     borderWidth: 1,

@@ -1,10 +1,10 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { colors } from '../../theme/colors';
 
-export default function AddPlan() {
+export default function AddExercise() {
   return (
     <TouchableOpacity style={styles.button}>
-      <Text style={styles.text}>Plan erstellen</Text>
+      <Text style={styles.text}>Übung hinzufügen</Text>
     </TouchableOpacity>
   );
 }
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingVertical: 16,
     alignItems: 'center',
-    margin: 15
+    marginTop: 15,
   },
   text: {
     fontSize: 16,

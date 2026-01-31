@@ -7,19 +7,24 @@ import { useRouter } from 'expo-router';
 export default function Plan() {
   const router = useRouter();
   return (
-    <TouchableOpacity style={styles.button} onPress={() => router.push('./plans/Trainingplan')}>
-        <View style={styles.top}>
-            <Text style={styles.title}>Push</Text>
-            <TouchableOpacity style={styles.more}>
-                <Feather name="more-vertical" size={20} color="black" />
-            </TouchableOpacity>
+    <TouchableOpacity style={styles.button}>
+        <View style={styles.box}>
+            <Feather name="image" size={80} color="black" />
+            <View style={styles.top}>
+                <Text style={styles.title}>Brustpresse</Text>
+            </View> 
         </View>
-        <Text style={styles.exercises}>Übungen: 5</Text>
+        
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
+  box:{
+    display: 'flex',
+    flexDirection: 'row',
+    marginHorizontal: 15,
+  },
   more:{
     marginRight: 8,
   },

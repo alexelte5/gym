@@ -9,9 +9,9 @@ const router = useRouter();
 
   return (
     <View style={styles.card}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Dein Trainingsplan</Text>
-        <TouchableOpacity  onPress={() => router.push('./plans')}>
+      <View>
+        <TouchableOpacity  onPress={() => router.push('./plans')}  style={styles.header}>
+          <Text style={styles.title}>Dein Trainingsplan</Text>
           <Feather name="edit-3" size={20} color="black" />
         </TouchableOpacity>
       </View>
