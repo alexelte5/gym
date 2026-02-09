@@ -1,3 +1,5 @@
 .env
 .env.*
 
+db/*
+backend/app/__pycache__/
