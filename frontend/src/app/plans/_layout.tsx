@@ -19,6 +19,10 @@ export default function PlansLayout() {
         name="Trainingplan"
         options={{ title: 'Testplan' }}
       />
+      <Stack.Screen
+        name="NewTrainingPlan"
+        options={{ title: 'Neu' }}
+      />
     </Stack>
   );
 }
