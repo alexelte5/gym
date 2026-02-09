@@ -1,5 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import WeekSelector from './WeekSelector';
+import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../theme/colors';
 
 export default function SmallLeaderBoard() {
