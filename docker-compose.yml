@@ -1,0 +1,36 @@
+services:
+    backend:
+        build: ./backend
+        volumes:
+            - ./backend:/usr/src/app
+        ports:
+            - 8000:8000
+        depends_on:
+            postgres:
+                condition: service_healthy
+
+    postgres:
+        image: postgres:17
+        volumes:
+            - ./db/data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=root
+            - POSTGRES_DB=gym
+        expose:
+            - 5432
+        healthcheck:
+            test: ["CMD", "pg_isready"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: root
+        ports:
+            - 9008:80
+        expose:
+            - 80
