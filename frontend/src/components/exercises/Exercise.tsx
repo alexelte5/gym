@@ -4,7 +4,7 @@ import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
 
 
-export default function Plan() {
+export default function Exercise() {
   const router = useRouter();
   return (
     <TouchableOpacity style={styles.button}>

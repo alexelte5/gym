@@ -5,6 +5,7 @@ import AddExerciseSheet from "@/src/components/bottom-sheet/AddExerciseSheet";
 import { useRef } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { colors } from "@/src/theme/colors";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Trainingplan() {
   const exercises = [
@@ -20,26 +21,27 @@ const sheetRef = useRef<BottomSheet>(null);
   }
 
   return (
-    <ScreenWrapper>
-        <View style={styles.wrapper}>
-            <Exercise />
-            <Exercise />
-            <Exercise />
-            
-            <TouchableOpacity style={styles.button} onPress={() => sheetRef.current?.expand()}>
-              <Text style={styles.text}>Übung hinzufügen</Text>
-            </TouchableOpacity>
-            
-        </View>
-        <AddExerciseSheet
-              ref={sheetRef}
-              onSelectExercise={(exercise) => {
-                console.log('Selected:', exercise);
-                sheetRef.current?.close();
-              }}
-            />
-    </ScreenWrapper>
-    
+    <GestureHandlerRootView>
+      <ScreenWrapper>
+          <View style={styles.wrapper}>
+              <Exercise />
+              <Exercise />
+              <Exercise />
+              
+              <TouchableOpacity style={styles.button} onPress={() => sheetRef.current?.expand()}>
+                <Text style={styles.text}>Übung hinzufügen</Text>
+              </TouchableOpacity>
+              
+          </View>
+          <AddExerciseSheet
+                ref={sheetRef}
+                onSelectExercise={(exercise) => {
+                  console.log('Selected:', exercise);
+                  sheetRef.current?.close();
+                }}
+              />
+      </ScreenWrapper>
+    </GestureHandlerRootView>
   );
 }
 
