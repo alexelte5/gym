@@ -1,7 +1,18 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable } from 'react-native';
 import { colors } from '../../theme/colors';
+import { useAuth } from '../../lib/AuthContext';
+import { removeToken } from '../../lib/secureStore';
+import { useRouter } from 'expo-router';
+
 
 export default function DashboardHeader() {
+
+  const router = useRouter();
+  const { logout } = useAuth();
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity>
@@ -10,10 +21,13 @@ export default function DashboardHeader() {
 
       <Text style={styles.streak}>Streak (4 Tage)</Text>
 
-      <Image
-        source={{ uri: 'https://i.pravatar.cc/100' }}
-        style={styles.avatar}
-      />
+      <Pressable onPress={handleLogout}>
+        <Image
+          source={{ uri: 'https://i.pravatar.cc/100' }}
+          style={styles.avatar}
+        />
+      </Pressable>
+      
     </View>
   );
 }
@@ -42,3 +56,4 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
+

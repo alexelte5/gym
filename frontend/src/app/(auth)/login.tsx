@@ -9,10 +9,11 @@ import {
     Alert,
 } from 'react-native';
 
-import { login } from '../../lib/api';
-import { saveToken } from '../../lib/secureStore';
+import { useAuth } from '../../lib/AuthContext';
+import { login as apiLogin } from '../../lib/api';
 
 export default function Login() {
+    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -25,13 +26,15 @@ export default function Login() {
 
         setLoading(true);
         try {
-            const response = await login(email, password);
+            const response = await apiLogin(email, password);
 
-            await saveToken(response.access_token);
+            if (!response.access_token) {
+                throw new Error(response.detail || 'Login fehlgeschlagen');
+            }
 
-            router.replace('/(tabs)');
-        } catch (err) {
-            Alert.alert('Login fehlgeschlagen', 'Email oder Passwort falsch');
+            await login(response.access_token);
+        } catch (err: any) {
+            Alert.alert('Login fehlgeschlagen', err.message || 'Email oder Passwort falsch');
         } finally {
             setLoading(false);
         }

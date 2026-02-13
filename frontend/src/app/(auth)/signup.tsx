@@ -33,11 +33,15 @@ export default function Login() {
         try {
             const response = await signup(email, password);
 
+            if (!response.access_token) {
+                throw new Error(response.detail || 'SignUp fehlgeschlagen');
+            }
+
             await saveToken(response.access_token);
 
-            router.replace('/(tabs)');
-        } catch (err) {
-            Alert.alert('SignUp fehlgeschlagen', 'Ein Account mit dieser Email Adresse existiert bereits');
+            router.replace('/login');
+        } catch (err: any) {
+            Alert.alert('SignUp fehlgeschlagen', err.message || 'Ein Account mit dieser Email Adresse existiert bereits');
         } finally {
             setLoading(false);
         }

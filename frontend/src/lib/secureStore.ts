@@ -5,3 +5,6 @@ export const saveToken = (token: string) =>
 
 export const getToken = () =>
   SecureStore.getItemAsync("token");
+
+export const removeToken = () =>
+  SecureStore.deleteItemAsync("token");
