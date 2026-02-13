@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+const API_URL = "http://192.168.178.85:8000";
 
 export async function login(email: string, password: string) {
   const res = await fetch(`${API_URL}/auth/login`, {
@@ -19,7 +19,7 @@ export async function signup(email: string, password: string) {
 }
 
 export async function forgotPassword(email: string) {
-    const res = await fetch('http://localhost:8000/forgot-password', {
+    const res = await fetch(`${API_URL}/auth/forgot-password`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
