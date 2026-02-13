@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.db import get_db
 from app.helper import hash_password, verify_password
+from app.schemas import UserCredentials, ForgotPasswordRequest  # <--- importieren
 
 app = FastAPI(title="Gym App API")
 
@@ -29,9 +30,8 @@ def get_users():
 
 
 @app.post("/auth/signup")
-def add_user(email: str, password: str):
-    password_hash = hash_password(password)
-
+def add_user(data: UserCredentials):
+    password_hash = hash_password(data.password)
     try:
         with get_db() as cur:
             cur.execute(
@@ -40,13 +40,13 @@ def add_user(email: str, password: str):
                 VALUES (%s, %s)
                 RETURNING user_id;
                 """,
-                (email, password_hash)
+                (data.email, password_hash)
             )
             user_id = cur.fetchone()[0]
 
         return {
             "id": user_id,
-            "email": email,
+            "email": data.email,
             "access_token": "dummy-token"
         }
 
@@ -55,11 +55,11 @@ def add_user(email: str, password: str):
 
 
 @app.post("/auth/login")
-def login(email: str, password: str):
+def login(data: UserCredentials):
     with get_db() as cur:
         cur.execute(
             "SELECT user_id, password_hash FROM users WHERE email=%s",
-            (email,)
+            (data.email,)
         )
         row = cur.fetchone()
 
@@ -67,29 +67,27 @@ def login(email: str, password: str):
         raise HTTPException(401, "Invalid credentials")
 
     user_id, password_hash = row
-    if not verify_password(password, password_hash):
+    if not verify_password(data.password, password_hash):
         raise HTTPException(401, "Invalid credentials")
 
     return {
         "id": user_id,
-        "email": email,
+        "email": data.email,
         "access_token": "dummy-token"
     }
 
 @app.post("/auth/forgot-password")
-def send_mail(email: str):
+def send_mail(data: ForgotPasswordRequest):
     try:
         with get_db() as cur:
             cur.execute(
                 "SELECT user_id FROM users WHERE email=%s",
-                (email,)
+                (data.email,)
             )
             user = cur.fetchone()
 
             if user:
                 user_id = user[0]
-                # TODO:
-                # 1. generate reset token and save in db, send mail
                 print(f"Password reset requested for user_id={user_id}")
         return {
             "message": "Falls ein Konto mit dieser E-Mail existiert, wurde eine Passwort-Reset-Mail versendet."
